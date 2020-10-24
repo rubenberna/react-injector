@@ -1,22 +1,30 @@
-import React from 'react'
-import {
-  Checkbox,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  Menu,
-  Segment,
-  Sidebar,
-} from 'semantic-ui-react'
+import React, { useState } from 'react';
+import { Grid, Icon, Menu, Segment, Sidebar} from 'semantic-ui-react';
+import { Home } from '../home/home';
+import { AppOne } from '../appOne/AppOne';
+import { AppTwo } from '../appTwo/AppTwo';
 
-export const SidebarExample = () => {
-  const [visible, setVisible] = React.useState(false)
+const Segments = {
+  HOME: 'HOME',
+  APP_ONE: 'APP_ONE',
+  APP_TWO: 'APP_TWO',
+};
+
+export const AppSidebar = () => {
+  const [visible, setVisible] = React.useState(false);
+  const [visibleSegment, setVisibleSegment] = useState(Segments.HOME);
+
+  const renderSegments = (name) => ({
+    [Segments.HOME]: <Home/>,
+    [Segments.APP_ONE]: <AppOne/>,
+    [Segments.APP_TWO]: <AppTwo/>,
+  })[name];
 
   return (
     <Grid columns={1}>
       <Grid.Column>
-        <Sidebar.Pushable as={Segment} style={{minHeight: '100vh'}} onMouseOver={() => setVisible(true)} onMouseOut={() => setVisible(false)}>
+        <Sidebar.Pushable as={Segment} style={{minHeight: '100vh'}} onMouseOver={() => setVisible(true)}
+                          onMouseOut={() => setVisible(false)}>
           <Sidebar
             as={Menu}
             animation='overlay'
@@ -29,17 +37,17 @@ export const SidebarExample = () => {
             visible={visible}
             width='thin'
           >
-            <Menu.Item as='a'>
-              <Icon name='home' />
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.HOME)}>
+              <Icon name='home'/>
               Home
             </Menu.Item>
-            <Menu.Item as='a'>
-              <Icon name='gamepad' />
-              Games
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)}>
+              <Icon name='gamepad'/>
+              App 1
             </Menu.Item>
-            <Menu.Item as='a'>
-              <Icon name='camera' />
-              Channels
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_TWO)}>
+              <Icon name='camera'/>
+              App 2
             </Menu.Item>
           </Sidebar>
 
@@ -61,17 +69,10 @@ export const SidebarExample = () => {
           </Sidebar>
 
           <Sidebar.Pusher>
-            <Segment basic>
-              <Header as='h3'>Application Header</Header>
-            </Segment>
-            <Segment basic>
-              <div className="h-flex-centered">
-                <h2>React injector</h2>
-              </div>
-            </Segment>
+            {renderSegments(visibleSegment)}
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Grid.Column>
     </Grid>
-  )
-}
+  );
+};
