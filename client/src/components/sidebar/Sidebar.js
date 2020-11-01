@@ -4,6 +4,7 @@ import { Home } from '../home/Home';
 import { FirstApp } from '../appOne/AppOne';
 import { AppTwo } from '../appTwo/AppTwo';
 
+
 const Segments = {
   HOME: 'HOME',
   APP_ONE: 'APP_ONE',
@@ -11,7 +12,6 @@ const Segments = {
 };
 
 export const AppSidebar = () => {
-  const [visible, setVisible] = React.useState(false);
   const [visibleSegment, setVisibleSegment] = useState(Segments.HOME);
 
   const renderSegments = (name) => ({
@@ -23,18 +23,15 @@ export const AppSidebar = () => {
   return (
     <Grid columns={1}>
       <Grid.Column>
-        <Sidebar.Pushable as={Segment} style={{minHeight: '100vh'}} onMouseOver={() => setVisible(true)}
-                          onMouseOut={() => setVisible(false)}>
+        <Sidebar.Pushable as={Segment} style={{minHeight: '100vh'}}>
           <Sidebar
             as={Menu}
             animation='overlay'
             direction='left'
             icon='labeled'
             inverted
-            onHide={() => setVisible(false)}
             vertical
-
-            visible={visible}
+            visible={true}
             width='thin'
           >
             <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.HOME)}>
@@ -42,30 +39,13 @@ export const AppSidebar = () => {
               Home
             </Menu.Item>
             <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)}>
-              <Icon name='gamepad'/>
+              <Icon name='font'/>
               App 1
             </Menu.Item>
             <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_TWO)}>
-              <Icon name='camera'/>
+              <Icon name='bold'/>
               App 2
             </Menu.Item>
-          </Sidebar>
-
-          <Sidebar
-            as={Menu}
-            animation='overlay'
-            direction='right'
-            inverted
-            vertical
-            visible={visible}
-          >
-            <Menu.Item as='a' header>
-              File Permissions
-            </Menu.Item>
-            <Menu.Item as='a'>Share on Social</Menu.Item>
-            <Menu.Item as='a'>Share by E-mail</Menu.Item>
-            <Menu.Item as='a'>Edit Permissions</Menu.Item>
-            <Menu.Item as='a'>Delete Permanently</Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher>

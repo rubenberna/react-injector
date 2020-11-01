@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppOne } from 'react-switch-app-one'
-
+import { Input } from 'semantic-ui-react'
 
 export const FirstApp = () => {
   const [searchInput, setSearchInput] = useState()
@@ -8,7 +8,7 @@ export const FirstApp = () => {
     <div className="main-segment">
       <div className="app-one">
         <AppOne searchInput={searchInput} text='Search for a Github username'/>
-        <input onChange={(e) => setSearchInput(e.target.value)}/>
+        <Input onChange={(e) => setSearchInput(e.target.value)} placeholder="Type username"/>
       </div>
     </div>
   );

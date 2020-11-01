@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { FileUploadForm } from '../fileUpload/FileUploadForm';
+import { FileUploaded } from '../fileUpload/FileUploaded';
 
 export const AppTwo = () => {
+  const [uploadedFile, setUploadedFile] = useState({});
 
-  //TODO: inject react app into html
   return (
     <div className="main-segment">
-      <h2>App TWO</h2>
+      <div className="h-flex-column">
+        <h2>React Injector</h2>
+        <FileUploadForm setUploadedFile={setUploadedFile}/>
+        <FileUploaded uploadedFile={uploadedFile}/>
+      </div>
     </div>
   );
 }
+
+
