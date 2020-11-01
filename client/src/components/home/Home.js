@@ -8,7 +8,10 @@ export const Home = () => {
     <div className="main-segment">
       <div className="h-flex-column home">
         <Header as='h1'>React switch</Header>
-        <Header as='h2' image={NpmLogo} content='App One' />
+        <div className='h-flex-row'>
+          <NpmLogo className="h-small-margin-right"/>
+          <Header as='h2'>App One</Header>
+        </div>
         <Container>
           <p>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
@@ -25,7 +28,10 @@ export const Home = () => {
             Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
           </p>
         </Container>
-        <Header as='h2' image={JSFileIcon} content='App Two' />
+        <div className='h-flex-row'>
+          <JSFileIcon/>
+          <Header as='h2'>App Two</Header>
+        </div>
         <Container>
           <p>
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo

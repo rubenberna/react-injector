@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { FileUploadForm } from '../fileUpload/FileUploadForm';
 import { FileUploaded } from '../fileUpload/FileUploaded';
 
-export const AppTwo = () => {
+const AppTwo = () => {
   const [uploadedFile, setUploadedFile] = useState({});
 
   return (
@@ -16,4 +16,5 @@ export const AppTwo = () => {
   );
 }
 
+export default AppTwo
 

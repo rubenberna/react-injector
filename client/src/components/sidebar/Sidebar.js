@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { Grid, Icon, Menu, Segment, Sidebar} from 'semantic-ui-react';
 import { Home } from '../home/Home';
-import { FirstApp } from '../appOne/AppOne';
-import { AppTwo } from '../appTwo/AppTwo';
+const FirstApp = lazy(() => import('../appOne/AppOne'))
+const AppTwo = lazy(() => import('../appTwo/AppTwo'))
 
 
 const Segments = {
@@ -16,8 +16,8 @@ export const AppSidebar = () => {
 
   const renderSegments = (name) => ({
     [Segments.HOME]: <Home/>,
-    [Segments.APP_ONE]: <FirstApp/>,
-    [Segments.APP_TWO]: <AppTwo/>,
+    [Segments.APP_ONE]: <Suspense fallback={<div>Loading...</div>}><FirstApp/></Suspense>,
+    [Segments.APP_TWO]: <Suspense fallback={<div>Loading...</div>}><AppTwo/></Suspense>,
   })[name];
 
   return (
@@ -34,15 +34,15 @@ export const AppSidebar = () => {
             visible={true}
             width='thin'
           >
-            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.HOME)}>
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.HOME)} active={visibleSegment === Segments.HOME}>
               <Icon name='home'/>
               Home
             </Menu.Item>
-            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)}>
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)} active={visibleSegment === Segments.APP_ONE}>
               <Icon name='font'/>
               App 1
             </Menu.Item>
-            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_TWO)}>
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_TWO)} active={visibleSegment === Segments.APP_TWO}>
               <Icon name='bold'/>
               App 2
             </Menu.Item>

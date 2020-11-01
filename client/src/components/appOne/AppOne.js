@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AppOne } from 'react-switch-app-one'
 import { Input } from 'semantic-ui-react'
 
-export const FirstApp = () => {
+const FirstApp = () => {
   const [searchInput, setSearchInput] = useState()
   return (
     <div className="main-segment">
@@ -13,3 +13,5 @@ export const FirstApp = () => {
     </div>
   );
 }
+
+export default FirstApp

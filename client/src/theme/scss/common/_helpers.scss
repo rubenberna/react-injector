@@ -1,6 +1,7 @@
 .h-flex-row {
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
 }
 
 .h-flex-column {
@@ -23,4 +24,8 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+.h-small-margin-right {
+  margin-right: 10px;
 }
