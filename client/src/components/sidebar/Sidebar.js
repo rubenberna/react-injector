@@ -40,11 +40,11 @@ export const AppSidebar = () => {
             </Menu.Item>
             <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)} active={visibleSegment === Segments.APP_ONE}>
               <Icon name='font'/>
-              App 1
+              Npm package
             </Menu.Item>
             <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_TWO)} active={visibleSegment === Segments.APP_TWO}>
               <Icon name='bold'/>
-              App 2
+              Imported files
             </Menu.Item>
           </Sidebar>
 

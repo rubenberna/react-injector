@@ -29,7 +29,7 @@ export const Home = () => {
           </p>
         </Container>
         <div className='h-flex-row'>
-          <JSFileIcon/>
+          <JSFileIcon className="h-small-margin-right"/>
           <Header as='h2'>App Two</Header>
         </div>
         <Container>

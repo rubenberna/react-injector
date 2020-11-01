@@ -1,8 +1,6 @@
 import React from 'react'
 
 export const FileUploaded = ({uploadedFile}) => {
-
-  console.log(uploadedFile);
     return (
       <>
       {uploadedFile &&
