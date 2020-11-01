@@ -14,19 +14,9 @@ export const Home = () => {
         </div>
         <Container>
           <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-            ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et
-            magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-            quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-            Nullam dictum felis eu pede link mollis pretium. Integer tincidunt. Cras
-            dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
-            Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-            Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus
-            viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet.
-            Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+            Imports components as npm packages using react-create-library. Developers can develop components isolated, it can be lazy imported, so not included in the main bundle and it's easy to communicate via props with the main app.
           </p>
+          <p>The current example takes a text and a search input from the main app, which the package uses to fetch and render Github profiles. Only the <italic>input field</italic> belongs to this app</p>
         </Container>
         <div className='h-flex-row'>
           <JSFileIcon className="h-small-margin-right"/>
@@ -34,19 +24,13 @@ export const Home = () => {
         </div>
         <Container>
           <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-            ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et
-            magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-            ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-            quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-            Nullam dictum felis eu pede link mollis pretium. Integer tincidunt. Cras
-            dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
-            Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-            Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus
-            viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet.
-            Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+            At the moment it takes any file input, sends it to an express server, which moves it to a 'uploads' folder in the static client > public directory and it renders the file as an image.
           </p>
+          <p style={{ fontWeight: 600, color: '#616161'}}>Challenges:</p>
+          <ul>
+            <li>Didn't yet find a way to mount a js file into the ReactDOM -- since it normally takes an actual component and all three files (libraries, launch and app code) are normally needed to mount a React app.</li>
+            <li>With useRef, I can access a DOM node. I've tried to append a script to it (the app code bundle), but it forces the DOM to rerender so, it's lost right afterwards</li>
+          </ul>
         </Container>
       </div>
     </div>
