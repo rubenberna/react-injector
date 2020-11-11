@@ -43,7 +43,7 @@ const navEntries = loadedAppPaths.reduce((acc, Comp, idx) => ({
 const otherNavEntries = async _ => {
   const promises = packagesPaths.map(async (path, idx) => {
     const obj = {};
-    const Comp = await lazy(() => import(path).catch(e => console.log(e)));
+    const Comp = await lazy(() => import(path).then(comp => comp).catch(e => console.log(e)));
     obj[`APP_${idx}`] = <Comp/>;
     return obj;
   });
