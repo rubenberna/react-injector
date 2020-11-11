@@ -16,7 +16,7 @@ export const Home = () => {
           <p>
             Imports components as npm packages using react-create-library. Developers can develop components isolated, it can be lazy imported, so not included in the main bundle and it's easy to communicate via props with the main app.
           </p>
-          <p>The current example takes a text and a search input from the main app, which the package uses to fetch and render Github profiles. Only the <italic>input field</italic> belongs to this app</p>
+          <p>The current example takes a text and a search input from the main app, which the package uses to fetch and render Github profiles. Only the <span style={{ fontStyle: 'italic'}}>input field</span> belongs to this app</p>
         </Container>
         <div className='h-flex-row'>
           <JSFileIcon className="h-small-margin-right"/>

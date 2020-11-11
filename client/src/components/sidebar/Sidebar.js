@@ -1,14 +1,59 @@
-import React, { useState, Suspense, lazy } from 'react';
-import { Grid, Icon, Menu, Segment, Sidebar} from 'semantic-ui-react';
-import { Home } from '../home/Home';
-const FirstApp = lazy(() => import('../appOne/AppOne'))
-const AppTwo = lazy(() => import('../appTwo/AppTwo'))
+import React, {lazy, Suspense, useState} from 'react';
+import {Grid, Icon, Menu, Segment, Sidebar} from 'semantic-ui-react';
+import {Home} from '../home/Home';
 
+const FirstApp = lazy(() => import('../appOne/AppOne'));
+const SecondApp = lazy(() => import('../appThree/AppThree'));
+const GHub = lazy(() => import('react-switch-app-one'));
+const Count = lazy(() => import('@ruben.bernardes.dev/counter'));
+
+const packagesPaths = ['react-switch-app-one', '@ruben.bernardes.dev/counter'];
+const importComponent = async path => {
+  const promise = await lazy(async () => await import(path).catch((e) => console.log(e)));
+  return await Promise.resolve(promise);
+};
+
+const loadedAppPaths = packagesPaths.map(async app => importComponent(app));
+
+// 1. WORKS - but with static import
+const loadedApps = [
+  {
+    name: 'Gitbub profiler',
+    component: <GHub/>
+  },
+  {
+    name: 'Count',
+    component: <Count/>
+  },
+];
+
+// 2. Doesn't work: component is always a promise
+const renderList = packagesPaths.map((app, index) => ({
+  name: index,
+  component: importComponent(app)
+}));
+
+// 3. Doesn't work: uncaught module
+const navEntries = loadedAppPaths.reduce((acc, Comp, idx) => ({
+  ...acc,
+  [`APP_${idx}`]: <Suspense fallback={<div>Loading...</div>}><Comp/></Suspense>
+}), {});
+
+// 4. Doesn't work: it's not a valid React.jsx
+const otherNavEntries = async _ => {
+  const promises = packagesPaths.map(async (path, idx) => {
+    const obj = {};
+    const Comp = await lazy(() => import(path).catch(e => console.log(e)));
+    obj[`APP_${idx}`] = <Comp/>;
+    return obj;
+  });
+  return await Promise.all(promises);
+};
 
 const Segments = {
   HOME: 'HOME',
-  APP_ONE: 'APP_ONE',
-  APP_TWO: 'APP_TWO',
+  APP_ONE: 'APP_0',
+  APP_TWO: 'APP_1',
 };
 
 export const AppSidebar = () => {
@@ -16,8 +61,7 @@ export const AppSidebar = () => {
 
   const renderSegments = (name) => ({
     [Segments.HOME]: <Home/>,
-    [Segments.APP_ONE]: <Suspense fallback={<div>Loading...</div>}><FirstApp/></Suspense>,
-    [Segments.APP_TWO]: <Suspense fallback={<div>Loading...</div>}><AppTwo/></Suspense>,
+    ...otherNavEntries()
   })[name];
 
   return (
@@ -34,22 +78,30 @@ export const AppSidebar = () => {
             visible={true}
             width='thin'
           >
-            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.HOME)} active={visibleSegment === Segments.HOME}>
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.HOME)}
+                       active={visibleSegment === Segments.HOME}>
               <Icon name='home'/>
               Home
             </Menu.Item>
-            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)} active={visibleSegment === Segments.APP_ONE}>
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)}
+                       active={visibleSegment === Segments.APP_ONE}>
               <Icon name='font'/>
               Npm package
             </Menu.Item>
-            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_TWO)} active={visibleSegment === Segments.APP_TWO}>
+            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_TWO)}
+                       active={visibleSegment === Segments.APP_TWO}>
               <Icon name='bold'/>
-              Imported files
+              Npm package
             </Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher>
-            {renderSegments(visibleSegment)}
+            <Suspense fallback={<div>Loading...</div>}>
+              {/*{loadedApps.map(comp => comp.component)}*/}
+              {/*{components.map(comp => comp)}*/}
+              {/*{renderList.map(app => app.component)}*/}
+              {renderSegments(visibleSegment)}
+            </Suspense>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Grid.Column>
